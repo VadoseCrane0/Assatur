@@ -55,16 +55,9 @@ namespace ModdingToolkit
             {
                 var lines = TextsProvider.Wizard.Split('\n').Length;
 
-                if (Console.WindowHeight < lines)
+                if (Console.WindowHeight < lines && OperatingSystem.IsWindows())
                 {
-                    try
-                    {
-                        Console.WindowHeight = lines + 6;
-                    }
-                    catch (PlatformNotSupportedException)
-                    {
-                        // Do nothing
-                    }
+                    Console.WindowHeight = lines + 6;
                 }
             }
 
@@ -104,8 +97,8 @@ namespace ModdingToolkit
             catch (ExecutionException e)
             {
                 Console.WriteLine();
-                ConsoleHelper.WriteLineError("Error while executing toolkit:{0}Code: {1} ({2}){0}Message: {3}", 
-                    Environment.NewLine, (int) e.Code, e.Code.ToString(), e.Message);
+                ConsoleHelper.WriteLineError("Error while executing toolkit:{0}Code: {1} ({2}){0}Message: {3}",
+                    Environment.NewLine, (int)e.Code, e.Code.ToString(), e.Message);
             }
 
 #if DEBUG
